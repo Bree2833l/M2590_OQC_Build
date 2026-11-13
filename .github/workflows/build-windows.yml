@@ -23,10 +23,10 @@ jobs:
 
       - name: Build EXE with PyInstaller
         run: |
-          pyinstaller -w -F -n FAI_Mapping_Tool V3.py
+          pyinstaller -w -F -n FAI_Mapping_Tool csv_title_toolV8 chejian.py
 
       - name: Upload EXE as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: FAI_Mapping_Tool
+          name: Title search row
           path: dist/FAI_Mapping_Tool.exe
