@@ -23,14 +23,10 @@ jobs:
 
       - name: Build EXE with PyInstaller
         run: |
-          pyinstaller -w -F -n FAI_Mapping_Tool "V5.py"
-
-      - name: List dist directory
-        run: |
-          dir dist
+          pyinstaller -w -F -n FAI_Mapping_Tool V5.py
 
       - name: Upload EXE as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: FAI Mapping Tool V5
-          path: dist/FAI_Mapping_Tool.exe
+          path: dist/FAI Mapping Tool.exe我的这个应该怎么修改，把修改的地方和怎么修改都告诉我，并且给我完整的代码
