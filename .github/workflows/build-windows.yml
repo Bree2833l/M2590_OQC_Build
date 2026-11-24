@@ -1,4 +1,6 @@
+
 name: FAI Mapping Tool V5
+
 on:
   push:
     branches: [ main ]
@@ -7,26 +9,49 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
 
+    steps:
+      # 1. 下载 GitHub 仓库代码
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      # 2. 配置 Python 环境
       - name: Setup Python 3.11
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
+      # 3. 安装依赖
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install openpyxl pyinstaller
 
+      # 4. 使用 PyInstaller 打包
       - name: Build EXE with PyInstaller
         run: |
-          pyinstaller -w -F -n FAI_Mapping_Tool V5.py
+          pyinstaller --clean --noconfirm -w -F -n FAI_Mapping_Tool V5.py
 
+      # 5. 检查 EXE 是否成功生成
+      - name: Verify EXE
+        shell: pwsh
+        run: |
+          Write-Host "Checking generated EXE..."
+
+          if (!(Test-Path "dist/FAI_Mapping_Tool.exe")) {
+              Write-Host "ERROR: EXE file was not generated!"
+              Write-Host "Contents of dist folder:"
+              Get-ChildItem -Path dist -ErrorAction SilentlyContinue
+              throw "FAI_Mapping_Tool.exe not found!"
+          }
+
+          Write-Host "EXE successfully generated!"
+          Get-Item "dist/FAI_Mapping_Tool.exe" | Format-List Name, Length, FullName
+
+      # 6. 上传 EXE 文件
       - name: Upload EXE as Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: FAI Mapping Tool V5
-          path: dist/FAI Mapping Tool.exe我的这个应该怎么修改，把修改的地方和怎么修改都告诉我，并且给我完整的代码
+          path: dist/*.exe
+          if-no-files-found: error
