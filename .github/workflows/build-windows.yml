@@ -25,7 +25,7 @@ jobs:
         run: |
           pyinstaller -w -F -n FAI_Mapping_Tool "V5.py"
 
-      - name: List dist directory (Debug)
+      - name: List dist directory
         run: |
           dir dist
 
