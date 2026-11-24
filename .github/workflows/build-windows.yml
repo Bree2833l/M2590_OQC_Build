@@ -23,10 +23,14 @@ jobs:
 
       - name: Build EXE with PyInstaller
         run: |
-          pyinstaller -w -F -n FAI_Mapping_Tool V5.py
+          pyinstaller -w -F -n FAI_Mapping_Tool "V5.py"
+
+      - name: List dist directory (Debug)
+        run: |
+          dir dist
 
       - name: Upload EXE as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: FAI Mapping Tool V5
-          path: dist/FAI Mapping Tool V5.exe
+          path: dist/FAI_Mapping_Tool.exe
