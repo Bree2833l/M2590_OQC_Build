@@ -1,4 +1,4 @@
-name: Build Windows EXE
+name: FAI Mapping Tool V5
 on:
   push:
     branches: [ main ]
@@ -23,10 +23,10 @@ jobs:
 
       - name: Build EXE with PyInstaller
         run: |
-          pyinstaller -w -F -n FAI_Mapping_Tool V8.py
+          pyinstaller -w -F -n FAI_Mapping_Tool V5.py
 
       - name: Upload EXE as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Title search row
-          path: dist/FAI_Mapping_Tool.exe
+          name: FAI Mapping Tool V5
+          path: dist/FAI Mapping Tool V5.exe
